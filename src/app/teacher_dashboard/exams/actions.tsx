@@ -8,7 +8,7 @@ export async function createTest(formData : FormData) {
     
     const name = formData.get('name');
     const user_id = formData.get('user_id');
-    const res = await sql`INSERT INTO users (name, id) VALUES (${name}, ${user_id})`;
+    await sql`INSERT INTO users (name, id) VALUES (${name}, ${user_id})`;
     
 
     redirect('/teacher_dashboard/exams')
