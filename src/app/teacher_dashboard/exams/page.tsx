@@ -1,4 +1,4 @@
-import { neon } from '@neondatabase/serverless';
+
 import { createTest } from './actions';
 
 export default function examForm() {
