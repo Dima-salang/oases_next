@@ -1,10 +1,8 @@
-import { neon } from '@neondatabase/serverless';
+import { getTests } from "./actions";
 
 export default async function ExamList() {
 
-    'use server';
-    const sql = neon(process.env.DATABASE_URL!);
-    const users = await sql`SELECT * FROM users`;
+    const users = await getTests();
 
     return (
         <div>
