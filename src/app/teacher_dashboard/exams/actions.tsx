@@ -18,14 +18,12 @@ const formDataSchema = z.object({
 export async function createTest(formData: FormData) {
     
     const formDataObject = Object.fromEntries(formData.entries());
-
-    
     const parsedFormData = formDataSchema.safeParse(formDataObject);
     if (!parsedFormData.success) {
         throw new Error(parsedFormData.error.message);
     }
 
-    const { name, user_id } = parsedFormData.data;
+    const { name } = parsedFormData.data;
 
     
     await db.insert(users).values({ name });
