@@ -6,7 +6,7 @@ import { config } from "dotenv";
 import { redirect } from "next/navigation";
 import { users } from "./schema";
 import { createUserSchema, signInSchema } from "@/app/zod";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 config({ path: ".env" }); // or .env.local
 
 const sql = neon(process.env.DATABASE_URL!);
