@@ -1,22 +1,22 @@
-import { pgTable, serial, text, integer, primaryKey} from "drizzle-orm/pg-core";
+import { pgTable, serial, text, integer, primaryKey, uuid} from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").defaultRandom().primaryKey(),
     username: text("username").notNull(),
     password: text("password").notNull(),
     name: text("name").notNull(),
 })
 
-export const students = pgTable("students", {
+export const students = pgTable("students", {   
     student_id: integer("student_id").primaryKey(),
-    user_id: integer("user_id").references(() => users.id, {onDelete: "cascade"}),
+    user_id: uuid("user_id").defaultRandom().references(() => users.id, {onDelete: "cascade"}),
     section: text("section").notNull(),
 
 })
 
 export const teachers = pgTable("teachers", {
     teacher_id: integer("teacher_id").primaryKey(),
-    user_id: integer("user_id").references(() => users.id, {onDelete: "cascade"}),
+    user_id: uuid("user_id").defaultRandom().references(() => users.id, {onDelete: "cascade"}),
 })
 
 export const sections = pgTable("sections", {
