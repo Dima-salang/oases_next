@@ -8,6 +8,13 @@
       "when": 1739553724242,
       "tag": "0000_little_revanche",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1739781705238,
+      "tag": "0001_high_sleepwalker",
+      "breakpoints": true
     }
   ]
 }
