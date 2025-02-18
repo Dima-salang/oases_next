@@ -62,7 +62,7 @@ export default function LogInFormComponent() {
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?
+            No account?
             <a href="/login" className="font-medium text-primary hover:underline">
               Register
             </a>

@@ -1,8 +1,6 @@
 
 
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { signOut } from "@/auth";
 import LogOutButton from "./LogOutButton";
 
 export default function NavBar() {
