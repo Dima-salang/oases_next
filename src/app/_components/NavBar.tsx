@@ -1,5 +1,9 @@
-import Link from "next/link";
 
+
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { signOut } from "@/auth";
+import LogOutButton from "./LogOutButton";
 
 export default function NavBar() {
     return (
@@ -28,12 +32,7 @@ export default function NavBar() {
                   >
                     Services
                   </Link>
-                  <Link
-                    href="/contact"
-                    className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Contact
-                  </Link>
+                  <LogOutButton />
                 </div>
               </div>
             </div>
