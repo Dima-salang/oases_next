@@ -18,8 +18,8 @@ export default function LogInFormComponent() {
         </CardHeader>
         <CardContent>
           <form action={async (formData) => {
-        "use server"
-        const res = await signIn("credentials", formData, {redirectTo: "/"});
+            "use server";
+        await signIn("credentials", {username: formData.get("username"), password: formData.get("password"), redirectTo: "/student_dashboard/test"});
       }} className="space-y-4">
             
             <div className="space-y-2">
