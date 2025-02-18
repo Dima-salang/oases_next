@@ -11,8 +11,6 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { User, Lock, UserCircle } from 'lucide-react';
 
 const RegistrationForm = () => {
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -70,18 +68,12 @@ const RegistrationForm = () => {
               </div>
             </div>
 
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
 
             <Button
               type="submit"
               className="w-full"
-              disabled={loading}
             >
-              {loading ? 'Creating account...' : 'Register'}
+               Register
             </Button>
           </form>
         </CardContent>

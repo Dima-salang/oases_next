@@ -19,7 +19,7 @@ export default function LogInFormComponent() {
         <CardContent>
           <form action={async (formData) => {
         "use server"
-        await signIn("credentials", formData, {callbackUrl: "/student_dashboard/test"})
+        const res = await signIn("credentials", formData, {redirectTo: "/"});
       }} className="space-y-4">
             
             <div className="space-y-2">
@@ -56,13 +56,13 @@ export default function LogInFormComponent() {
               type="submit"
               className="w-full"
             >
-              'Login'
+              Login
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
+            Don't have an account?
             <a href="/login" className="font-medium text-primary hover:underline">
               Register
             </a>
