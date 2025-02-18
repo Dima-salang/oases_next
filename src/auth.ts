@@ -31,7 +31,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // Optionally, this is also the place you could do a user registration
           throw new Error("Invalid credentials.")
         }
- 
+        
+        console.log("Logged in user: ", user);
         // return user object with their profile data
         return user;
       },

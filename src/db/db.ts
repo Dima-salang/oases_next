@@ -1,16 +1,14 @@
-// src/db.ts
+"use server";
 import { drizzle} from "drizzle-orm/neon-http";
 import { eq } from "drizzle-orm";
 import { neon } from "@neondatabase/serverless";
-import { config } from "dotenv";
 import { redirect } from "next/navigation";
 import { users } from "./schema";
 import { createUserSchema, signInSchema } from "@/app/zod";
 import bcrypt from "bcryptjs";
-config({ path: ".env" }); // or .env.local
 
 const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle({ client: sql });
+const db = drizzle(sql);
 
 
 
@@ -22,11 +20,20 @@ export async function createUser(formData: FormData) {
         throw new Error(parsedFormData.error.message);
     }
 
-    const { username, password, name } = parsedFormData.data;
+    const { username, password, name } = parsedFormData.data; // get the data from the form
+    // check if the user already exists in the database
+    const user = await db.select().from(users).where(eq(users.username, username));
+    if (user) {
+        throw new Error("Username already exists. Please choose a different username.");
+    }
+    const hashedPassword = await bcrypt.hash(password, 10); // hash the password
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
+    // insert the user into db
     await db.insert(users).values({ username:username, password:hashedPassword, name:name });
+
+    // TO-DO: HANDLE CREATION OF USER AND TEACHER ACCOUNTS
+    
+
 
     console.log("User inserted:", name);
     redirect('/teacher_dashboard/exams');
