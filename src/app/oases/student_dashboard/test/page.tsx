@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getTests } from "./actions";
 import { auth } from '@/auth';
 export default async function ExamList() {
@@ -9,6 +10,7 @@ export default async function ExamList() {
     
     if (!session) { 
         console.log("No session found");
+        redirect('/login');
     }
 
     return (

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { User, Lock } from 'lucide-react';
+import { ROUTES } from '@/routes';
 
 export default function LogInFormComponent() { 
     return (
@@ -19,7 +20,7 @@ export default function LogInFormComponent() {
         <CardContent>
           <form action={async (formData) => {
             "use server";
-        await signIn("credentials", {username: formData.get("username"), password: formData.get("password"), redirectTo: "/student_dashboard/test"});
+        await signIn("credentials", {username: formData.get("username"), password: formData.get("password"), redirectTo: `${ROUTES.STUDENT_DASHBOARD}/test`});
       }} className="space-y-4">
             
             <div className="space-y-2">
