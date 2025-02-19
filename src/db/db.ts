@@ -14,6 +14,7 @@ const db = drizzle(sql);
 
 
 
+
 export async function createUser(formData: FormData) {
     
     const formDataObject = Object.fromEntries(formData.entries());
@@ -38,7 +39,7 @@ export async function createUser(formData: FormData) {
 
 
     console.log("User inserted:", name);
-    redirect('/teacher_dashboard/exams');
+    redirect(`${ROUTES.STUDENT_DASHBOARD}/test`);
 }
 
 
