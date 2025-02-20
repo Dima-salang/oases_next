@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 // Your own logic for dealing with plaintext password strings; be careful!
-import { getUser } from "./db/db";
+import { getUser, getUserRole } from "./db/db";
 
 
 
@@ -41,10 +41,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // Optionally, this is also the place you could do a user registration
           throw new Error("Invalid credentials.")
         }
+
+        const role = await getUserRole(user.id);
         
         console.log("Logged in user: ", user);
         // return user object with their profile data
-        return user;
+        return {
+          id: user.id,
+          name: user.name,
+          username: user.username,
+          role: role,
+        }
       },
     }),
   ],

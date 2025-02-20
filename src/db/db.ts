@@ -3,10 +3,11 @@ import { drizzle} from "drizzle-orm/neon-http";
 import { eq } from "drizzle-orm";
 import { neon } from "@neondatabase/serverless";
 import { redirect } from "next/navigation";
-import { users } from "./schema";
+import { users, students, teachers } from "./schema";
 import { createUserSchema, signInSchema } from "@/app/zod";
 import bcrypt from "bcryptjs";
 import { ROUTES } from "@/routes";
+
 
 const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql);
@@ -63,4 +64,19 @@ export async function getUser({ username, password }: { username: string; passwo
     }
     return user[0];
     
+}
+
+
+export async function getUserRole(userID: string) {
+    const student = await db.select().from(students).where(eq(students.user_id, userID));
+    if (student) {
+        return "student";
+    }
+
+    const teacher = await db.select().from(teachers).where(eq(teachers.user_id, userID));
+    if (teacher) {
+        return "teacher";
+    }
+
+    return null;
 }
