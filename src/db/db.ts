@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { neon } from "@neondatabase/serverless";
 import { redirect } from "next/navigation";
 import { users, students, teachers } from "./schema";
-import { createUserSchema, signInSchema } from "@/app/zod";
+import { createStudentSchema, signInSchema } from "@/app/zod";
 import bcrypt from "bcryptjs";
 import { ROUTES } from "@/routes";
 
@@ -19,24 +19,36 @@ const db = drizzle(sql);
 export async function createUser(formData: FormData) {
     
     const formDataObject = Object.fromEntries(formData.entries());
-    const parsedFormData = createUserSchema.safeParse(formDataObject);
+    const parsedFormData = createStudentSchema.safeParse(formDataObject);
     if (!parsedFormData.success) {
         throw new Error(parsedFormData.error.message);
     }
 
-    const { username, password, name } = parsedFormData.data; // get the data from the form
+    const { student_id, username, password, name } = parsedFormData.data; // get the data from the form
+
+    console.log(student_id, username, password, name);
     // check if the user already exists in the database
     const user = await db.select().from(users).where(eq(users.username, username));
-    if (user) {
+    if (user.length > 0) {
         throw new Error("Username already exists. Please choose a different username.");
     }
+    const student_id_int = Number(student_id);
+
+    const student = await db.select().from(students).where(eq(students.student_id, student_id_int));
+    if (student.length > 0) {
+        throw new Error("Student ID already exists.");
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10); // hash the password
 
     // insert the user into db
     await db.insert(users).values({ username:username, password:hashedPassword, name:name });
 
+    // get the new user from the db
+    const insertedUser = await db.select().from(users).where(eq(users.username, username));
+
     // TO-DO: HANDLE CREATION OF USER AND TEACHER ACCOUNTS
-    
+    await db.insert(students).values({ student_id:student_id_int, user_id:insertedUser[0].id });
 
 
     console.log("User inserted:", name);

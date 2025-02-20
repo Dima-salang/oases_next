@@ -15,6 +15,13 @@
       "when": 1739804210267,
       "tag": "0001_puzzling_wild_pack",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1740062786140,
+      "tag": "0002_concerned_toad",
+      "breakpoints": true
     }
   ]
 }

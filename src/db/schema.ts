@@ -10,7 +10,7 @@ export const users = pgTable("users", {
 export const students = pgTable("students", {   
     student_id: integer("student_id").primaryKey(),
     user_id: uuid("user_id").defaultRandom().references(() => users.id, {onDelete: "cascade"}),
-    section: text("section").notNull(),
+    section: text("section"),
 
 })
 

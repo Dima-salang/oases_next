@@ -16,7 +16,7 @@ export default async function ExamList() {
     return (
         <div>
             {session?.user ? (
-                <h1>Hello there, {session.user.name}</h1>
+                <h1>Hello there, {session.user.name}, {session.user.role}</h1>
             ) : (
                 <h1>Not logged in</h1>
             )}
