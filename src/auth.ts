@@ -1,9 +1,19 @@
-import NextAuth from "next-auth"
+import NextAuth, { type DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
+
 // Your own logic for dealing with plaintext password strings; be careful!
 import { getUser, getUserRole } from "./db/db";
 
 
+
+declare module "next-auth" {
+
+  interface Session {
+    user: {
+      role: string
+    } & DefaultSession["user"]
+  }
+}
 
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
